@@ -1,3 +1,5 @@
+package com.floor7.calfood;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -95,9 +97,9 @@ class Food {
 		appearances.add(new FoodCoordinate(l, d, t));
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-	}
+//	@Override
+//	public boolean equals(Object obj) {
+//	}
 }
 
 
@@ -120,9 +122,9 @@ class FoodCoordinate {
 		return date;
 	}
 	
-	String getTime() {
-		return String;
-	}
+//	String getTime() {
+//		return String;
+//	}
 }
 
 /* Date.java */
