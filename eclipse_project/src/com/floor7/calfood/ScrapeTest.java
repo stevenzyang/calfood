@@ -20,7 +20,7 @@ public class ScrapeTest {
 	public static final String FH = "06";
 	
 	public static void main(String[] args) throws IOException{
-		ArrayList<Food> foods = getFoods(C3);
+		ArrayList<Food> foods = getFoods(CK);
 		for (Food food : foods){
 			System.out.println(food);
 		}
@@ -65,21 +65,7 @@ public class ScrapeTest {
 		}
 	}
 	
-	public static ArrayList<Food> getFoods(String location) throws IOException{
-		String loc = "01";
-		if (location == "XR"){
-			loc = XR;
-		}
-		if (location == "C3"){
-			loc = C3;
-		}
-		if (location == "CK"){
-			loc = CK;
-		}
-		if (location == "FH"){
-			loc = FH;
-		}
-		
+	public static ArrayList<Food> getFoods(String loc) throws IOException{
 		Calendar cal = Calendar.getInstance();
 		String date = (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR);
 		Date today = new Date(date);
@@ -102,7 +88,7 @@ public class ScrapeTest {
 	}
 	
 	
-	// returns URL of location at current day
+	// returns URL of location at date
 	public static String getURL(String location, String date){
 		String URL1 = "http://services.housing.berkeley.edu/FoodPro/dining/static/diningmenus.asp?dtCurDate=";
 		String URL2 = "&strCurLocation=";
