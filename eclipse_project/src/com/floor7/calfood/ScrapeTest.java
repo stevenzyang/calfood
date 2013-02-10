@@ -62,20 +62,20 @@ class Food {
 	public String name;
 	public ArrayList<FoodCoordinate> appearances = new ArrayList<FoodCoordinate>();
 	public int rating = 0;
-	
+
 	public Food(String n) {
 		name = n;
 	}
-	
+
 	void addCoordinate(String l, Date d, String t) {
 		appearances.add(new FoodCoordinate(l, d, t));
 	}
-	
+
 	@Override
 	public String toString() {
 		return name;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this.getClass() != obj.getClass()) {
@@ -98,21 +98,21 @@ class FoodCoordinate {
 	private String location;
 	private Date date;
 	private String time;
-	
+
 	FoodCoordinate(String l, Date d, String t) {
 		location = l;
 		date = d;
 		time = t;
 	}
-	
+
 	String getLocation() {
 		return location;
 	}
-	
+
 	Date getDate() {
 		return date;
 	}
-	
+
 	String getTime() {
 		return time;
 	}
