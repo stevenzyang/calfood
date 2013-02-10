@@ -64,7 +64,11 @@ public class ScrapeTest {
 			System.err.println("Error");
 		}
 	}
-	
+	/**
+	 * @param loc the dining hall. Valid inputs are
+	 * 			ScrapeTest.XR, ScrapeTest.C3, ScrapeTest.CK, and ScrapeTest.FH
+	 * @return the list of foods from the location
+	 */
 	public static ArrayList<Food> getFoods(String loc) throws IOException{
 		Calendar cal = Calendar.getInstance();
 		String date = (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR);
