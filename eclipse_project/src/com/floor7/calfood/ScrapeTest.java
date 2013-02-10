@@ -13,31 +13,39 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class ScrapeTest {
-	public static void main(String[] args) {
+	
+	public static final String XR = "01";
+	public static final String C3 = "03";
+	public static final String CK = "04";
+	public static final String FH = "06";
+	
+//	public static void main(String[] args) throws IOException{
+//		ArrayList<Food> foods = getFoods(XR);
+//		for (Food food : foods){
+//			System.out.println(food)
+//		}
+//	}
+	
+	public static void updateFoods() {
 		int days_in_advance = 16;
 		int total_num_of_foods = 0;
 		//boolean isBreakfast = false;
 		//boolean isLunch = false;
 		//boolean isDinner = false;
 		HashSet<Food> foods = new HashSet<Food>();
-		Calendar cal = Calendar.getInstance();
-		Pattern foodpattern = Pattern.compile("openDescWin\\('','(.*?)'\\)");
 		//Pattern breakfast = Pattern.compile("");
-		String URL1 = "http://services.housing.berkeley.edu/FoodPro/dining/static/diningmenus.asp?dtCurDate=";
-		String URL2 = "&strCurLocation=";
+		Calendar cal = Calendar.getInstance();
 		String date = (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR);
 		Date today = new Date(date);
 		date = today.toString();
-		String[] location = {"01", "03", "04", "06"};
+		String[] location = {XR, C3, CK, FH};
 		try {
 			PrintWriter out = new PrintWriter(new FileWriter("foods.txt"));
 			for (int i = 0; i < days_in_advance; i++) {
 				for (int j = 0; j < location.length; j++) {
-					String URL = URL1 + date + URL2 + location[j];
-					Document doc = Jsoup.connect(URL).get();
-					Element body = doc.body();
+					String URL = getURL(location[j], date);
+					Matcher m = matchPattern(("openDescWin\\('','(.*?)'\\)"), URL);
 					//isBreakfast = true;
-					Matcher m = foodpattern.matcher(body.html());
 					while (m.find()) {
 						total_num_of_foods += 1;
 						String s = m.group(1);
@@ -56,6 +64,52 @@ public class ScrapeTest {
 			System.err.println("Error");
 		}
 	}
+	
+	public static ArrayList<Food> getFoods(String location) throws IOException{
+		String loc = "01";
+		if (location == "XR"){
+			loc = XR;
+		}
+		if (location == "C3"){
+			loc = XR;
+		}
+		if (location == "CK"){
+			loc = XR;
+		}
+		if (location == "FH"){
+			loc = XR;
+		}
+		
+		Calendar cal = Calendar.getInstance();
+		String date = (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR);
+		Date today = new Date(date);
+		date = today.toString();
+		String URL = getURL(loc, date);
+		Matcher m = matchPattern("openDescWin\\('','(.*?)'\\)", URL);
+		ArrayList<Food> foods = new ArrayList<Food>(15);
+		while (m.find()) {
+			foods.add(new Food(m.group(1)));
+		}
+		return foods;
+	}
+	
+	private static Matcher matchPattern(String regex, String URL) throws IOException{
+		Pattern foodpattern = Pattern.compile(regex);
+		Document doc = Jsoup.connect(URL).get();
+		Element body = doc.body();
+		Matcher m = foodpattern.matcher(body.html());
+		return m;
+	}
+	
+	
+	// returns URL of location at current day
+	public static String getURL(String location, String date){
+		String URL1 = "http://services.housing.berkeley.edu/FoodPro/dining/static/diningmenus.asp?dtCurDate=";
+		String URL2 = "&strCurLocation=";
+		Calendar cal = Calendar.getInstance();
+		String URL = URL1 + date + URL2 + location;
+		return URL;
+	}
 }
 
 class Food {
@@ -65,6 +119,7 @@ class Food {
 
 	public Food(String n) {
 		name = n;
+		rating = 0;
 	}
 
 	void addCoordinate(String l, Date d, String t) {
