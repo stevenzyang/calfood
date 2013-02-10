@@ -19,12 +19,12 @@ public class ScrapeTest {
 	public static final String CK = "04";
 	public static final String FH = "06";
 	
-//	public static void main(String[] args) throws IOException{
-//		ArrayList<Food> foods = getFoods(XR);
-//		for (Food food : foods){
-//			System.out.println(food)
-//		}
-//	}
+	public static void main(String[] args) throws IOException{
+		ArrayList<Food> foods = getFoods(C3);
+		for (Food food : foods){
+			System.out.println(food);
+		}
+	}
 	
 	public static void updateFoods() {
 		int days_in_advance = 16;
@@ -71,13 +71,13 @@ public class ScrapeTest {
 			loc = XR;
 		}
 		if (location == "C3"){
-			loc = XR;
+			loc = C3;
 		}
 		if (location == "CK"){
-			loc = XR;
+			loc = CK;
 		}
 		if (location == "FH"){
-			loc = XR;
+			loc = FH;
 		}
 		
 		Calendar cal = Calendar.getInstance();
