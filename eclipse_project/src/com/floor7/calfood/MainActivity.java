@@ -32,36 +32,40 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.activity_main);
+//		setContentView(R.layout.diningmenu);
+		//Make a button
+//		Button myButton = (Button) findViewById(R.id.my_button);
+		// Set up the action bar to show tabs.
+
+		final ActionBar actionBar = getActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		// For each of the sections in the app, add a tab to the action bar.
+		actionBar.addTab(actionBar.newTab().setText(R.string.title_section1)
+				.setTabListener(this));
+		actionBar.addTab(actionBar.newTab().setText(R.string.title_section2)
+				.setTabListener(this));
+		actionBar.addTab(actionBar.newTab().setText(R.string.title_section3)
+				.setTabListener(this));
 		
-//		setContentView(R.layout.activity_main);
-//		// Set up the action bar to show tabs.
-//
-//		final ActionBar actionBar = getActionBar();
-//		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-//
-//		// For each of the sections in the app, add a tab to the action bar.
-//		actionBar.addTab(actionBar.newTab().setText(R.string.title_section1)
-//				.setTabListener(this));
-//		actionBar.addTab(actionBar.newTab().setText(R.string.title_section2)
-//				.setTabListener(this));
-//		actionBar.addTab(actionBar.newTab().setText(R.string.title_section3)
-//				.setTabListener(this));
-//		
 		String[] items = {"test1", "test2", "test3"};
-//		int[] ids = {R.id.crossroads, R.id.cafe3, R.id.foothill, R.id.clark_kerr};
-//		for(int i=0; i<ids.length; i++) {
-//			ListView listView = (ListView) findViewById(ids[i]);
-//			listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items));
+
+//		setContentView(R.layout.diningmenu);
+//		
+//		ListView listView = (ListView) findViewById(R.id.menu_items);
+//		ArrayAdapter menuAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+//		listView.setAdapter(menuAdapter);
+//		
+//		for (int i = 0; i < menuAdapter.getCount(); i++){
+//			;
 //		}
-		
-		setContentView(R.layout.diningmenu);
-		
-		ListView listView = (ListView) findViewById(R.id.menu_items);
-		ArrayAdapter menuAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
-		listView.setAdapter(menuAdapter);
-		
-		for (int i = 0; i < menuAdapter.getCount(); i++){
-			;
+		String[] diningNames = {"Crossroads", "Cafe 3", "Foothill", "Clark Kerr"};
+		int[] ids = {R.id.crossroads, R.id.cafe3, R.id.foothill, R.id.clark_kerr};
+		for(int i=0; i<ids.length; i++) {
+			ListView listView = (ListView) findViewById(ids[i]);
+			listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items));
 		}
 
 	}
