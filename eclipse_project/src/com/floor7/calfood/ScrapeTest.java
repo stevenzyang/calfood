@@ -30,7 +30,7 @@ public class ScrapeTest {
 		date = today.toString();
 		String[] location = {"01", "03", "04", "06"};
 		try {
-			PrintWriter out = new PrintWriter(new FileWriter("C:/Users/Kevin/Kevin/Programming/Java/My_Scripts/foods.txt"));
+			PrintWriter out = new PrintWriter(new FileWriter("foods.txt"));
 			for (int i = 0; i < days_in_advance; i++) {
 				for (int j = 0; j < location.length; j++) {
 					String URL = URL1 + date + URL2 + location[j];
@@ -61,22 +61,22 @@ public class ScrapeTest {
 class Food {
 	public String name;
 	public ArrayList<FoodCoordinate> appearances = new ArrayList<FoodCoordinate>();
-	public int rating;
-	
+	public int rating = 0;
+
 	public Food(String n) {
 		name = n;
 		rating = 0;
 	}
-	
+
 	void addCoordinate(String l, Date d, String t) {
 		appearances.add(new FoodCoordinate(l, d, t));
 	}
-	
+
 	@Override
 	public String toString() {
 		return name;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this.getClass() != obj.getClass()) {
@@ -99,21 +99,21 @@ class FoodCoordinate {
 	private String location;
 	private Date date;
 	private String time;
-	
+
 	FoodCoordinate(String l, Date d, String t) {
 		location = l;
 		date = d;
 		time = t;
 	}
-	
+
 	String getLocation() {
 		return location;
 	}
-	
+
 	Date getDate() {
 		return date;
 	}
-	
+
 	String getTime() {
 		return time;
 	}

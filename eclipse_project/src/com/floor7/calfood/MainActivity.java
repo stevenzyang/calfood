@@ -27,6 +27,7 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_main);
 //		setContentView(R.layout.diningmenu);
 		//Make a button
@@ -45,6 +46,16 @@ public class MainActivity extends FragmentActivity implements
 				.setTabListener(this));
 		
 		String[] items = {"test1", "test2", "test3"};
+
+//		setContentView(R.layout.diningmenu);
+//		
+//		ListView listView = (ListView) findViewById(R.id.menu_items);
+//		ArrayAdapter menuAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+//		listView.setAdapter(menuAdapter);
+//		
+//		for (int i = 0; i < menuAdapter.getCount(); i++){
+//			;
+//		}
 		String[] diningNames = {"Crossroads", "Cafe 3", "Foothill", "Clark Kerr"};
 		Food[] testFoods = {new Food("waffle fries"), new Food("chocolate")};
 		

@@ -3,13 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
-
-    <Button
-        android:id="@+id/my_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" 
-        android:text="@string/my_button_text"/>
-
+    android:orientation="vertical" >
+    
+    <ListView
+		    android:id="@+id/menu_items"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" />
+    
+	<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+	
+		<Button xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/decrement_rating"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:onClick="sendMessage" />
+	
+		<TextView android:id="@+id/rating"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:text="@string/temp_rating" />
+	
+	
+		<Button xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/increment_rating"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:onClick="sendMessage" />
+		
+	</GridLayout>
 </LinearLayout>
