@@ -32,10 +32,7 @@ public class ScrapeTest {
 		date = today.toString();
 		String[] location = {"01", "03", "04", "06"};
 		try {
-			PrintWriter out1 = new PrintWriter(new FileWriter("C:/Users/Kevin/Kevin/Programming/Java/My_Scripts/Crossroads.txt"));
-			PrintWriter out2 = new PrintWriter(new FileWriter("C:/Users/Kevin/Kevin/Programming/Java/My_Scripts/Cafe 3.txt"));
-			PrintWriter out3 = new PrintWriter(new FileWriter("C:/Users/Kevin/Kevin/Programming/Java/My_Scripts/Clark Kerr.txt"));
-			PrintWriter out4 = new PrintWriter(new FileWriter("C:/Users/Kevin/Kevin/Programming/Java/My_Scripts/Foothill.txt"));
+			PrintWriter out = new PrintWriter(new FileWriter("foods.txt"));
 			for (int i = 0; i < days_in_advance; i++) {
 				for (int j = 0; j < location.length; j++) {
 					String URL = URL1 + date + URL2 + location[j];
