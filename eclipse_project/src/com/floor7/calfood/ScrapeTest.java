@@ -61,7 +61,7 @@ public class ScrapeTest {
 class Food {
 	public String name;
 	public ArrayList<FoodCoordinate> appearances = new ArrayList<FoodCoordinate>();
-	public int rating;
+	public int rating = 0;
 	
 	public Food(String n) {
 		name = n;
