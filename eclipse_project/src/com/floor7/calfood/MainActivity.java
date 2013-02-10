@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements
@@ -27,18 +28,20 @@ public class MainActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		setContentView(R.layout.diningmenu);
+		//Make a button
+		Button myButton = (Button) findViewById(R.id.my_button);
 		// Set up the action bar to show tabs.
-		final ActionBar actionBar = getActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-		// For each of the sections in the app, add a tab to the action bar.
-		actionBar.addTab(actionBar.newTab().setText(R.string.title_section1)
-				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText(R.string.title_section2)
-				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText(R.string.title_section3)
-				.setTabListener(this));
+//		final ActionBar actionBar = getActionBar();
+//		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+//
+//		// For each of the sections in the app, add a tab to the action bar.
+//		actionBar.addTab(actionBar.newTab().setText(R.string.title_section1)
+//				.setTabListener(this));
+//		actionBar.addTab(actionBar.newTab().setText(R.string.title_section2)
+//				.setTabListener(this));
+//		actionBar.addTab(actionBar.newTab().setText(R.string.title_section3)
+//				.setTabListener(this));
 	}
 
 	@Override
