@@ -7,5 +7,6 @@
     <string name="title_section1">Breakfast</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+   	<string name= "my_button_text">Yo dawg!</string>
 
 </resources>
