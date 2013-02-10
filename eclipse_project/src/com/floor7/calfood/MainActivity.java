@@ -33,7 +33,7 @@ public class MainActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		setContentView(R.layout.diningmenu);
+//		setContentView(R.layout.diningmenu);
 		//Make a button
 //		Button myButton = (Button) findViewById(R.id.my_button);
 		// Set up the action bar to show tabs.
@@ -50,6 +50,7 @@ public class MainActivity extends FragmentActivity implements
 				.setTabListener(this));
 		
 		String[] items = {"test1", "test2", "test3"};
+		String[] diningNames = {"Crossroads", "Cafe 3", "Foothill", "Clark Kerr"};
 		int[] ids = {R.id.crossroads, R.id.cafe3, R.id.foothill, R.id.clark_kerr};
 		for(int i=0; i<ids.length; i++) {
 			ListView listView = (ListView) findViewById(ids[i]);
