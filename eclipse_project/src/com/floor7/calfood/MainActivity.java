@@ -12,12 +12,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.*;
+import android.util.*;
+
 import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
-
+	private static final String TAG = "CalFood";
+	
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * current tab position.
@@ -30,18 +35,27 @@ public class MainActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_main);
 		setContentView(R.layout.diningmenu);
 		//Make a button
-		Button myButton = (Button) findViewById(R.id.my_button);
+//		Button myButton = (Button) findViewById(R.id.my_button);
 		// Set up the action bar to show tabs.
-//		final ActionBar actionBar = getActionBar();
-//		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-//
-//		// For each of the sections in the app, add a tab to the action bar.
-//		actionBar.addTab(actionBar.newTab().setText(R.string.title_section1)
-//				.setTabListener(this));
-//		actionBar.addTab(actionBar.newTab().setText(R.string.title_section2)
-//				.setTabListener(this));
-//		actionBar.addTab(actionBar.newTab().setText(R.string.title_section3)
-//				.setTabListener(this));
+
+		final ActionBar actionBar = getActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		// For each of the sections in the app, add a tab to the action bar.
+		actionBar.addTab(actionBar.newTab().setText(R.string.title_section1)
+				.setTabListener(this));
+		actionBar.addTab(actionBar.newTab().setText(R.string.title_section2)
+				.setTabListener(this));
+		actionBar.addTab(actionBar.newTab().setText(R.string.title_section3)
+				.setTabListener(this));
+		
+		String[] items = {"test1", "test2", "test3"};
+		int[] ids = {R.id.crossroads, R.id.cafe3, R.id.foothill, R.id.clark_kerr};
+		for(int i=0; i<ids.length; i++) {
+			ListView listView = (ListView) findViewById(ids[i]);
+			listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items));
+		}
+
 	}
 
 	@Override
@@ -72,13 +86,14 @@ public class MainActivity extends FragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 		// When the given tab is selected, show the tab contents in the
 		// container view.
-		Fragment fragment = new DummySectionFragment();
-		Bundle args = new Bundle();
-		args.putInt(DummySectionFragment.ARG_SECTION_NUMBER,
-				tab.getPosition() + 1);
-		fragment.setArguments(args);
-		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.container, fragment).commit();
+		Log.d(TAG, "onTabSelected");
+//		Fragment fragment = new DummySectionFragment();
+//		Bundle args = new Bundle();
+//		args.putInt(DummySectionFragment.ARG_SECTION_NUMBER,
+//				tab.getPosition() + 1);
+//		fragment.setArguments(args);
+//		getSupportFragmentManager().beginTransaction()
+//				.replace(R.id.container, fragment).commit();
 	}
 
 	@Override
