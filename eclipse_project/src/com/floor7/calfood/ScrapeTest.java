@@ -65,6 +65,7 @@ class Food {
 	
 	public Food(String n) {
 		name = n;
+		rating = 0;
 	}
 	
 	void addCoordinate(String l, Date d, String t) {

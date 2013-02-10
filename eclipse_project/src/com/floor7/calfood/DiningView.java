@@ -2,8 +2,8 @@ package com.floor7.calfood;
 
 import android.view.*;
 import android.widget.*;
-import android.widget.LinearLayout.LayoutParams;
 import android.content.*;
+import android.util.*;
 
 class CustomDiningAdapter extends ArrayAdapter<Food> {
 
@@ -22,23 +22,28 @@ class CustomDiningAdapter extends ArrayAdapter<Food> {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = inflater.inflate(R.layout.dining_list_row, parent, false);
+				
 		TextView name = (TextView) rowView.findViewById(R.id.food_name);
 		name.setText(values[position].name);
 		
 		TextView ratingView = (TextView) rowView.findViewById(R.id.rating);
-		ratingView.setText(values[position].rating);
-
+		ratingView.setText(values[position].rating+"");
+		
 		return rowView;
 	}
 }
 
 public class DiningView extends ListView {
-	public DiningView(Context ctx, String title, Food[] bestFoods) {
+	public DiningView(Context ctx, String title, Food[] bestFoods, int totalRating) {
 		super(ctx);
 		TextView txt = new TextView(ctx);
 		txt.setText(title);
 		addHeaderView(txt);
+		
 		setAdapter(new CustomDiningAdapter(ctx, bestFoods));
+		
+		TextView t = new TextView(ctx);
+		t.setText("Rating: "+totalRating);
+		addFooterView(t);
 	}
-
 }

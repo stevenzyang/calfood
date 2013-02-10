@@ -6,12 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 
 import android.widget.*;
 import android.util.*;
@@ -51,12 +46,11 @@ public class MainActivity extends FragmentActivity implements
 		
 		String[] items = {"test1", "test2", "test3"};
 		String[] diningNames = {"Crossroads", "Cafe 3", "Foothill", "Clark Kerr"};
-		int[] ids = {R.id.crossroads, R.id.cafe3, R.id.foothill, R.id.clark_kerr};
-		for(int i=0; i<ids.length; i++) {
-			ListView listView = (ListView) findViewById(ids[i]);
-			listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items));
-		}
-
+		Food[] testFoods = {new Food("waffle fries"), new Food("chocolate")};
+		
+		DiningView x = new DiningView(this, "Foothill", testFoods, 5);
+		ViewGroup parent = (ViewGroup)findViewById(R.id.container);
+		parent.addView(x);
 	}
 
 	@Override
