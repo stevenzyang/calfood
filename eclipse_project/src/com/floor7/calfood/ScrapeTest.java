@@ -89,7 +89,7 @@ public class ScrapeTest {
 class Food {
 	public String name;
 	public ArrayList<FoodCoordinate> appearances = new ArrayList<FoodCoordinate>();
-	public int rating;
+	public int rating = 0;
 	
 	void addCoordinate(String l, Date d, String t) {
 		appearances.add(new FoodCoordinate(l, d, t));
