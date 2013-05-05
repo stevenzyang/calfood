@@ -1,57 +1,110 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="MergeRootFrame" >
 
-</FrameLayout>
- 
-<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" -->
-<!-- xmlns:tools="http://schemas.android.com/tools" -->
-<!-- android:id="@+id/container" -->
-<!-- android:layout_width="match_parent" -->
-<!-- android:layout_height="wrap_content" -->
-<!-- android:orientation="vertical" -->
-<!-- tools:context=".MainActivity" > -->
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/container"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:stretchColumns="1"
+tools:context=".MainActivity">
 
-<!-- <LinearLayout -->
-<!-- android:layout_width="match_parent" -->
-<!-- android:layout_height="wrap_content" -->
-<!-- android:layout_weight="1" -->
-<!-- android:orientation="horizontal" > -->
+	
+		<TableRow
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        	
+			<LinearLayout
+			    android:id="@+id/crossroads"
+			    android:layout_width="0dp"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:orientation="vertical" >
+					<ImageView
+					android:src="@drawable/crossroads_logo"
+					android:adjustViewBounds = "true"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+					<TextView
+					android:text= "Score: -20"
+					android:textStyle="bold"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+					<ListView
+					android:id="@+id/crossroads_featured"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+			</LinearLayout>
+			
+			<LinearLayout
+			android:id="@+id/cafe3"
+			android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+			android:orientation="vertical" >
+				<ImageView
+				android:src="@drawable/cafe3_logo"
+				android:adjustViewBounds = "true"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+				<TextView
+				android:text= "Score: 8"
+				android:textStyle="bold"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+				<ListView
+				android:id="@+id/cafe3_featured"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>	
+			</LinearLayout>
+		</TableRow>
+		
+		
+		<TableRow
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        	
+			<LinearLayout
+		    android:id="@+id/foothill"
+			android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+			android:orientation="vertical" >
+					<ImageView
+					android:src="@drawable/foothill_logo"
+					android:adjustViewBounds = "true"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+					<TextView
+					android:text= "Score: 6"
+					android:textStyle="bold"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+					<ListView
+					android:id="@+id/foothill_featured"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+			</LinearLayout>
+			
+			<LinearLayout
+			android:id="@+id/clark_kerr"
+			android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+			android:orientation="vertical" >
+				<ImageView
+				android:src="@drawable/ckc_logo"
+				android:adjustViewBounds = "true"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+				<TextView
+				android:text= "Score: 10"
+				android:textStyle="bold"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+				<ListView
+				android:id="@+id/clark_kerr_featured"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+			</LinearLayout>
+		</TableRow>
 
-<!-- <ListView -->
-<!-- android:id="@+id/crossroads" -->
-<!-- android:layout_width="wrap_content" -->
-<!-- android:layout_height="wrap_content" -->
-<!-- android:layout_weight="1" /> -->
-
-<!-- <ListView -->
-<!-- android:id="@+id/cafe3" -->
-<!-- android:layout_width="wrap_content" -->
-<!-- android:layout_height="wrap_content" -->
-<!-- android:layout_weight="1" /> -->
-<!-- </LinearLayout> -->
-
-<!-- <LinearLayout -->
-<!-- android:layout_width="match_parent" -->
-<!-- android:layout_height="wrap_content" -->
-<!-- android:layout_weight="1" -->
-<!-- android:orientation="horizontal" > -->
-
-<!-- <ListView -->
-<!-- android:id="@+id/foothill" -->
-<!-- android:layout_width="wrap_content" -->
-<!-- android:layout_height="wrap_content" -->
-<!-- android:layout_weight="1" /> -->
-
-<!-- <ListView -->
-<!-- android:id="@+id/clark_kerr" -->
-<!-- android:layout_width="wrap_content" -->
-<!-- android:layout_height="wrap_content" -->
-<!-- android:layout_weight="1" /> -->
-<!-- </LinearLayout> -->
-
-<!-- </LinearLayout> -->
+</TableLayout>

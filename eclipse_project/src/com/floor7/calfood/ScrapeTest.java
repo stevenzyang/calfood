@@ -19,13 +19,14 @@ public class ScrapeTest {
 	public static final String C3 = "03";
 	public static final String CK = "04";
 	public static final String FH = "06";
+	public static final String[] diningHalls = {XR, C3, FH, CK};
 	
 	public static void main(String[] args) throws IOException{
-		/*ArrayList<Food> foods = getFoods(CK);
+		ArrayList<Food> foods = getFoods(C3);
 		for (Food food : foods){
 			System.out.println(food);
-		} */
-		updateFoods();
+		} 
+		//updateFoods();
 	}
 	
 	public static void updateFoods() {
@@ -41,12 +42,11 @@ public class ScrapeTest {
 		String date = (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR);
 		Date today = new Date(date);
 		date = today.toString();
-		String[] location = {XR, C3, CK, FH};
 		try {
 			PrintWriter out = new PrintWriter(new FileWriter("foods.txt"));
 			for (int i = 0; i < days_in_advance; i++) {
-				for (int j = 0; j < location.length; j++) {
-					String URL = getURL(location[j], date);
+				for (int j = 0; j < diningHalls.length; j++) {
+					String URL = getURL(diningHalls[j], date);
 					Matcher m = matchPattern(("openDescWin\\('','(.*?)'\\)"), URL);
 					//isBreakfast = true;
 					while (m.find()) {
@@ -54,10 +54,10 @@ public class ScrapeTest {
 						String s = m.group(1);
 						if (foodtable.containsKey(s)) {
 							testoverlap++;
-							foodtable.get(s).addCoordinate(location[j], today, "All Day");
+							foodtable.get(s).addCoordinate(diningHalls[j], today, "All Day");
 						} else {
 							Food temp = new Food(s);
-							temp.addCoordinate(location[j], today, "All Day");
+							temp.addCoordinate(diningHalls[j], today, "All Day");
 							foodtable.put(s, temp);
 						}
 					}
@@ -83,6 +83,25 @@ public class ScrapeTest {
 			System.err.println("Error");
 		}
 	}
+	
+	//Updates food from all dining halls, placing a divider between each
+	public static ArrayList<Food> getFoods() throws IOException {
+		Calendar cal = Calendar.getInstance();
+		Date date = new Date((cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR));
+		return getFoods(date);
+	}
+	
+	public static ArrayList<Food> getFoods(Date date) throws IOException {
+		ArrayList<Food> allFoods = new ArrayList<Food>();
+		for (String loc: diningHalls){		
+			for (Food f : getFoods(loc, date)){
+				allFoods.add(f);
+			}
+			allFoods.add(new Food("*****")); //signals next dining hall
+		}
+		return allFoods;
+	}
+	
 	/**
 	 * @param loc the dining hall. Valid inputs are
 	 * 			ScrapeTest.XR, ScrapeTest.C3, ScrapeTest.CK, and ScrapeTest.FH
@@ -90,16 +109,8 @@ public class ScrapeTest {
 	 */
 	public static ArrayList<Food> getFoods(String loc) throws IOException {
 		Calendar cal = Calendar.getInstance();
-		String date = (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR);
-		Date today = new Date(date);
-		date = today.toString();
-		String URL = getURL(loc, date);
-		Matcher m = matchPattern("openDescWin\\('','(.*?)'\\)", URL);
-		ArrayList<Food> foods = new ArrayList<Food>(15);
-		while (m.find()) {
-			foods.add(new Food(m.group(1)));
-		}
-		return foods;
+		Date date = new Date((cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR));
+		return getFoods(loc, date);
 	}
 
 	public static ArrayList<Food> getFoods(String loc, Date date) throws IOException {
@@ -129,6 +140,19 @@ public class ScrapeTest {
 		Calendar cal = Calendar.getInstance();
 		String URL = URL1 + date + URL2 + location;
 		return URL;
+	}
+	
+	public static String diningCodeToName(String code){
+		if (code.equals(XR)){
+			return "Crossroads";
+		} else if (code.equals(C3)){
+			return "Cafe 3";
+		} else if (code.equals(FH)){
+			return "Foothill";
+		} else if (code.equals(CK)){
+			return "Clark Kerr";
+		}
+		return "Bad Code";
 	}
 }
 
@@ -175,15 +199,7 @@ class FoodCoordinate {
 	private String time;
 
 	FoodCoordinate(String l, Date d, String t) {
-		if (l.equals("01")) {
-			location = "Crossroads";
-		} else if (l.equals("03")) {
-			location = "Cafe 3";
-		} else if (l.equals("04")) {
-			location = "Clark Kerr";
-		} else {
-			location = "Foothill";
-		}
+		location = ScrapeTest.diningCodeToName(l);
 		date = d;
 		time = t;
 	}

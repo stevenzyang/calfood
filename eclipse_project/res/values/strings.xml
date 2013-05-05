@@ -8,5 +8,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
    	<string name= "temp_rating">Rating goes here.</string>
+   	
+   	 <string name="crossroads">Crossroads</string>
+   	 <string name="cafe3">Cafe 3</string>
+   	 <string name="clark_kerr">Clark Kerr</string>
+   	 <string name="foothill">Foothill</string>
 
 </resources>

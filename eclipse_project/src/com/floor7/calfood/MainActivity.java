@@ -1,9 +1,16 @@
 package com.floor7.calfood;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,24 +27,26 @@ import android.widget.TextView;
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 	private static final String TAG = "CalFood";
-
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * current tab position.
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
-	private static final String[] diningNames = { "Crossroads", "Cafe 3",
-			"Foothill", "Clark Kerr" };
-
+	private static final String[] diningHalls = { ScrapeTest.XR, ScrapeTest.C3, ScrapeTest.FH, ScrapeTest.CK };
+	
+	//temporary information stored here
+	private static ArrayList<ArrayList<Food>> allFoods = new ArrayList<ArrayList<Food>>();
+	private static Date today;
+	
+	/**
+	 * Initializes UI, starts scraper thread
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		Calendar cal = Calendar.getInstance();
+		today = new Date((cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR));
 		setContentView(R.layout.activity_main);
-		// setContentView(R.layout.diningmenu);
-		// Make a button
-		// Button myButton = (Button) findViewById(R.id.my_button);
-		// Set up the action bar to show tabs.
 
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -49,71 +58,51 @@ public class MainActivity extends FragmentActivity implements
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.title_section3)
 				.setTabListener(this));
-
-		// setContentView(R.layout.diningmenu);
-		//
-		// ListView listView = (ListView) findViewById(R.id.menu_items);
-		// ArrayAdapter menuAdapter = new ArrayAdapter<String>(this,
-		// android.R.layout.simple_list_item_1, items);
-		// listView.setAdapter(menuAdapter);
-		//
-		// for (int i = 0; i < menuAdapter.getCount(); i++){
-		// ;
-		// }
-		// String[] diningNames = {"Crossroads", "Cafe 3", "Foothill",
-		// "Clark Kerr"};
-
-		placeDiningHalls();
+		
+		new ScrapeFoods().execute(today);
 	}
-
-	private void placeDiningHalls() {
-
-		Food[] testFoods = { new Food("waffle fries"), new Food("chocolate"), new Food("chocolate"), new Food("chocolate"), new Food("chocolate"), new Food("chocolate") };
-
-		Point size = new Point();
-		getWindowManager().getDefaultDisplay().getSize(size);
-		int screenWidth = size.x;
-		int screenHeight = size.y;
-		int halfScreenHeight = (int) (screenWidth * 0.5);
-		int halfScreenWidth = (int) (screenHeight * 0.5);
-
-		// GridLayout gridLayout = new GridLayout(this);
-		// gridLayout.setColumnCount(2);
-		// gridLayout.setRowCount(2);
-		LinearLayout bigL = new LinearLayout(this);
-		bigL.setOrientation(LinearLayout.VERTICAL);
 	
-		for (int i = 0; i < 2; i++) {
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-					screenWidth, halfScreenHeight);
-			params.weight = 1;
-			params.gravity = Gravity.CENTER;
-			LinearLayout l = new LinearLayout(this);
-			l.setOrientation(LinearLayout.HORIZONTAL);
-			l.setLayoutParams(params);
-			
-			for (int j = 0; j < 2; j++) {
-				int index = i*2+j;
-				// Spec row = GridLayout.spec(i/2);
-				// Spec col = GridLayout.spec(i%2);
-				int wrap = LinearLayout.LayoutParams.WRAP_CONTENT;
-				LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-						halfScreenWidth, halfScreenHeight);
-				p.weight = 1;
-				p.gravity = Gravity.CENTER;
-				DiningView d = new DiningView(this, diningNames[index], testFoods,
-						index);
-				d.setLayoutParams(p);
-				l.addView(d);
-			}
-			bigL.addView(l);
+	
+	protected void onReceivedFoods(){
+		int[] featured = {R.id.crossroads_featured, R.id.cafe3_featured, R.id.foothill_featured, R.id.clark_kerr_featured};
+		for (int i = 0; i < featured.length; i++){
+			ListView lv = (ListView) findViewById(featured[i]);
+			ArrayAdapter<String> adapter = new ArrayAdapter(this,R.layout.food_text,allFoods.get(i));
+			lv.setAdapter(adapter);
 		}
-
-		ViewGroup parent = (ViewGroup) findViewById(R.id.container);
-		parent.addView(bigL);
-
 	}
-
+	
+	//Scraper thread
+	private class ScrapeFoods extends AsyncTask<Date, Void, ArrayList<Food>>{
+		@Override
+		protected ArrayList<Food> doInBackground(Date... date) {
+			ArrayList<Food> foods = new ArrayList<Food>();;
+			try {
+				foods = ScrapeTest.getFoods(date[0]);
+			} catch (IOException e) {
+				foods.add(new Food("Network error"));
+			}
+			return foods;
+		}
+		
+		@Override
+		protected void onPostExecute(ArrayList<Food> result) {
+			allFoods.add(new ArrayList<Food>());
+			allFoods.add(new ArrayList<Food>());
+			allFoods.add(new ArrayList<Food>());
+			allFoods.add(new ArrayList<Food>());
+			int i = 0;
+			for (Food food : result){
+				if (food.toString().equals("*****")){
+					i++;
+					continue;
+				}
+				allFoods.get(i).add(food);
+			}
+			onReceivedFoods();
+	     }
+	}
+	
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		// Restore the previously serialized current tab position.
