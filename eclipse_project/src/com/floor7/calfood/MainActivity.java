@@ -73,32 +73,25 @@ public class MainActivity extends FragmentActivity implements
 	}
 	
 	//Scraper thread
-	private class ScrapeFoods extends AsyncTask<Date, Void, ArrayList<Food>>{
+	private class ScrapeFoods extends AsyncTask<Date, Void, ArrayList<ArrayList<Food>>>{
 		@Override
-		protected ArrayList<Food> doInBackground(Date... date) {
-			ArrayList<Food> foods = new ArrayList<Food>();;
-			try {
-				foods = ScrapeTest.getFoods(date[0]);
-			} catch (IOException e) {
-				foods.add(new Food("Network error"));
+		protected ArrayList<ArrayList<Food>> doInBackground(Date... date) {
+			ArrayList<ArrayList<Food>> foods = new ArrayList<ArrayList<Food>>();
+			for (int i = 0; i < diningHalls.length; i++){
+				try {
+					foods.add(ScrapeTest.getFoods(diningHalls[i], date[0]));
+				} catch (IOException e) {
+					ArrayList<Food> error = new ArrayList<Food>();
+					error.add(new Food("Network error"));
+					foods.add(error);
+				}
 			}
 			return foods;
 		}
 		
 		@Override
-		protected void onPostExecute(ArrayList<Food> result) {
-			allFoods.add(new ArrayList<Food>());
-			allFoods.add(new ArrayList<Food>());
-			allFoods.add(new ArrayList<Food>());
-			allFoods.add(new ArrayList<Food>());
-			int i = 0;
-			for (Food food : result){
-				if (food.toString().equals("*****")){
-					i++;
-					continue;
-				}
-				allFoods.get(i).add(food);
-			}
+		protected void onPostExecute(ArrayList<ArrayList<Food>> result) {
+			allFoods = result;
 			onReceivedFoods();
 	     }
 	}

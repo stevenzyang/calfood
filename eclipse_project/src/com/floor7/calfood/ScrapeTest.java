@@ -84,24 +84,6 @@ public class ScrapeTest {
 		}
 	}
 	
-	//Updates food from all dining halls, placing a divider between each
-	public static ArrayList<Food> getFoods() throws IOException {
-		Calendar cal = Calendar.getInstance();
-		Date date = new Date((cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR));
-		return getFoods(date);
-	}
-	
-	public static ArrayList<Food> getFoods(Date date) throws IOException {
-		ArrayList<Food> allFoods = new ArrayList<Food>();
-		for (String loc: diningHalls){		
-			for (Food f : getFoods(loc, date)){
-				allFoods.add(f);
-			}
-			allFoods.add(new Food("*****")); //signals next dining hall
-		}
-		return allFoods;
-	}
-	
 	/**
 	 * @param loc the dining hall. Valid inputs are
 	 * 			ScrapeTest.XR, ScrapeTest.C3, ScrapeTest.CK, and ScrapeTest.FH
